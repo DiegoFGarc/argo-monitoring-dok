@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  description: Observability stack
+  destinations:
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - 'https://github.com/DiegoFGarc/argo-monitoring-dok'   # poner el repo
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

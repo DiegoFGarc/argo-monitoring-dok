@@ -1,0 +1,41 @@
+grafana:
+  adminUser: admin
+  adminPassword: admin123
+  service:
+    type: ClusterIP
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+  # En prod cambiar estas env con el dominio
+  env:
+    GF_SERVER_ROOT_URL: "http://grafana.local"
+    GF_AUTH_ANONYMOUS_ENABLED: "false"
+
+prometheus:
+  prometheusSpec:
+    retention: 15d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+
+alertmanager:
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+nodeExporter:
+  resources:
+    requests:
+      cpu: 30m
+      memory: 64Mi
