@@ -5,21 +5,23 @@ metadata:
   namespace: argocd
 spec:
   project: monitoring
-  source:
-    repoURL: 'https://grafana.github.io/helm-charts'
-    chart: loki-stack
-    targetRevision: '>=2.9.0'
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: https://kubernetes.default.svc
     namespace: monitoring
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki-stack
+      targetRevision: 2.10.2
+      helm:
+        valueFiles:
+          - $values/loki-stack/values.yaml
+    - repoURL: https://github.com/DiegoFGarc/argo-monitoring-dok
+      targetRevision: main
+      ref: values
+      path: .
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  sources:
-    - repoURL: 'https://github.com/DiegoFGarc/argo-monitoring-dok'
-      targetRevision: main
-      path: loki-stack
+    syncOptions:
+      - CreateNamespace=true
