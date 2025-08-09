@@ -1,0 +1,47 @@
+1. Instalar Helm repositorios
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+2. Crear namespace de monitoreo
+
+kubectl create namespace monitoring
+
+3. Instalar Kube-Prometheus-Stack (Prometheus + Grafana + Alertmanager)
+
+helm install kps prometheus-community/kube-prometheus-stack \
+  --namespace monitoring
+
+4. Verificar pods
+
+kubectl get pods -n monitoring
+
+5. Instalar Loki Stack (Loki + Promtail)
+
+helm install loki grafana/loki-stack \
+  --namespace monitoring \
+  --set grafana.enabled=false
+
+# Por si falla la instalacion de loki
+helm repo add grafana https://grafana.github.io/helm-charts\nhelm repo update\n\nhelm upgrade --install loki grafana/loki-stack \\n  -n monitoring \\n  --create-namespace \\n  --set grafana.enabled=false \\n  --set promtail.enabled=true \\n  --set loki.persistence.enabled=false\n
+
+6.Verificar instalación de Loki y Promtail
+
+kubectl get pods -n monitoring
+
+7.Obtener contraseña admin de Grafana
+
+kubectl get secret kps-grafana \
+  -n monitoring \
+  -o jsonpath="{.data.admin-password}" | base64 --decode; echo
+
+8.Redirección de puertos para acceder a Grafana localmente
+
+kubectl port-forward svc/kps-grafana 3000:80 -n monitoring
+
+9. Probar un pod sencillo
+
+kubectl create deployment podinfo --image=stefanprodan/podinfo --port=9898
+kubectl expose deployment podinfo --type=ClusterIP --port=9898
+
