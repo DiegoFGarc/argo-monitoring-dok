@@ -1,3 +1,29 @@
+# kps/values.yaml
+
+# Desactiva creación de Services/monitors en kube-system
+kubeControllerManager:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+coreDns:
+  enabled: false
+
+# (opcional) deja habilitados los componentes "seguros" en monitoring
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+# Grafana/Prometheus como ya los definiste
 grafana:
   adminUser: admin
   adminPassword: admin123
@@ -8,7 +34,7 @@ grafana:
       enabled: true
     datasources:
       enabled: true
+
 prometheus:
   prometheusSpec:
     retention: 7d
-
