@@ -1,3 +1,5 @@
+Pasos para laboratorio dentro del cluster de pruebas sin GitOps
+
 1. Instalar Helm repositorios
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
