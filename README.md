@@ -47,23 +47,30 @@ Todo versionado en este repo con **Argo CD**.
 ```
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 ```
-<pre> ```bash kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f - ``` </pre>
 
 2. **Crear el proyecto de Argo** (scoping/seguridad):
 
-<pre> ```bash kubectl apply -f argo/project-monitoring.yaml ``` </pre>
+```
+bash kubectl apply -f argo/project-monitoring.yaml
+```
 
 3. **Desplegar Loki + Promtail con Argo:**
 
-<pre> ```bash kubectl apply -f argo/app-loki-stack.yaml ``` </pre>
+```
+kubectl apply -f argo/app-loki-stack.yaml
+```
 
 4. **Desplegar kube-prometheus-stack con Argo:**
 
-<pre> ```bash kubectl apply -f argo/app-kps.yaml ``` </pre>
+```
+bash kubectl apply -f argo/app-kps.yaml
+```
 
 ## 🧹 Desinstalación
 
-<pre> ```kubectl delete -f argo/app-kps.yaml ``` </pre>
-<pre> ```kubectl delete -f argo/app-loki-stack.yaml ``` </pre>
-<pre> ```kubectl delete -f argo/project-monitoring.yaml ``` </pre>
-<pre> ```kubectl delete namespace monitoring ``` </pre>
+```
+kubectl delete -f argo/app-kps.yaml
+kubectl delete -f argo/app-loki-stack.yaml
+kubectl delete -f argo/project-monitoring.yaml
+kubectl delete namespace monitoring
+```
