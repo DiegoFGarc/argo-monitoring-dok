@@ -1,5 +1,9 @@
 grafana:
   enabled: false
+  sidecar:
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: false
 loki:
   auth_enabled: false
   persistence:
