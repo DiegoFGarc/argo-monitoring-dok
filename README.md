@@ -63,7 +63,7 @@ kubectl apply -f argo/app-loki-stack.yaml
 4. **Desplegar kube-prometheus-stack con Argo:**
 
 ```
-bash kubectl apply -f argo/app-kps.yaml
+kubectl apply -f argo/app-kps.yaml
 ```
 
 ## 🧹 Desinstalación
